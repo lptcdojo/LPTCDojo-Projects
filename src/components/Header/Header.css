@@ -1,0 +1,47 @@
+.navbar{
+    background-color: white;
+    height:10%;
+    width:100%;
+    padding-left: 1%;
+    display: flex;
+    align-items: center;
+}
+
+.logo{
+    display: flex;
+}
+
+.dojo-icon{
+    padding-right: 10px;
+    border-right: 1px solid black;
+}
+
+.dojo-icon > img{
+    height:45px;
+    width:45px;
+}
+
+.navbar > ul{
+    list-style-type: none;
+    display: flex;
+}
+
+.navbar > ul > li{
+    float:left;
+    padding-right: 40px;
+}
+
+.navbar > ul > li > a{
+    font-weight: bold;
+    font-size: 18px;
+    color: #999;
+}
+
+.navbar > ul > li > a:hover{
+    color: #555;
+    cursor: pointer;
+}
+
+.navbar > ul > li > a.selected{
+    color: black;
+}
