@@ -4,7 +4,9 @@
     width:100%;
     padding-left: 1%;
     display: flex;
+    justify-content: flex-start;
     align-items: center;
+    box-sizing: border-box;
 }
 
 .logo{
@@ -24,6 +26,7 @@
 .navbar > ul{
     list-style-type: none;
     display: flex;
+    margin:0;
 }
 
 .navbar > ul > li{
