@@ -1,11 +1,10 @@
 import React from 'react'
 import './ProjectCard.css'
-import banner from 'images/banner.png'
 
 function ProjectCard(props){
     return (
-        <a className="project-card" href="#test">
-            <img src={banner} />
+        <a className="project-card" href={props.href}>
+            <img src={props.image} alt="banner" />
             <div className="card-content">
                 <span className="card-title">{props.title}</span>
                 <p className="card-description">

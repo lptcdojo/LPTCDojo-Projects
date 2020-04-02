@@ -1,35 +1,43 @@
 import React, { Component } from 'react';
+import { chunk } from 'lodash';
 import './ProjectsTable.css';
 import { Container, Row, Col } from 'react-bootstrap'
 import { ProjectCard } from 'components/ProjectCard'
+import { default as config } from 'config.js'
 
 class ProjectsTable extends Component{
+
+    constructor(props){
+        super(props)
+        this.state = {
+            isFetching: false,
+            projects: []
+        }
+    }
+
+    componentDidMount(){
+        this.setState({...this.state, isFetching:true})
+        fetch(config.api.projects)
+        .then(results => {
+            return results.json()
+        }).then(data => {
+            const rows = chunk(data, 3);
+            this.setState({projects: rows});
+        });
+    }
 
     render(){
         return (
             <Container>
-                <Row>
-                    <Col xs={12} md={4}>
-                        <ProjectCard title="3D bug" description="Design a 3D printable insect with BlocksCAD" tags="3D printer, BlocksCad, Webbrowser"/>
-                    </Col>
-                    <Col xs={12} md={4}>
-                        <ProjectCard title="3D key ring" description="Design a coder keyring that can be 3D printed" tags="3D printer, BlocksCad, Webbrowser"/>
-                    </Col>
-                    <Col xs={12} md={4}>
-                        <ProjectCard title="3D pendant" description="Design a pendant" tags="3D printer, BlocksCad, Webbrowser"/>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col xs={12} md={4}>
-                        <ProjectCard title="3D bug" description="Design a 3D printable insect with BlocksCAD" tags="3D printer, BlocksCad, Webbrowser"/>
-                    </Col>
-                    <Col xs={12} md={4}>
-                        <ProjectCard title="3D key ring" description="Design a coder keyring that can be 3D printed" tags="3D printer, BlocksCad, Webbrowser"/>
-                    </Col>
-                    <Col xs={12} md={4}>
-                        <ProjectCard title="3D pendant" description="Design a pendant" tags="3D printer, BlocksCad, Webbrowser"/>
-                    </Col>
-                </Row>
+                {this.state.projects.map((cols) => (
+                    <Row>
+                        {cols.map((project) => (
+                            <Col sm={12} md={4}>
+                                <ProjectCard title={project.title} description={project.description} tags={project.tags} href={config.content + project.pdf_url} image={config.content + project.image_url}/>
+                            </Col>
+                        ))}
+                    </Row>
+                ))}
             </Container>
         )
     }
